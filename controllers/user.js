@@ -1,6 +1,14 @@
+var User = require("../models/User")
+
 module.exports.controller = (app) => {
     //get users page
     app.get('/users', (req, res) => {
-        res.render('index', { title: 'Users'});
+        User.find({}, 'name, email', function (error, users) {
+            if (error) {
+                console.log(error);
+            }
+            res.send(users);
+        })
+        
     })
 }
